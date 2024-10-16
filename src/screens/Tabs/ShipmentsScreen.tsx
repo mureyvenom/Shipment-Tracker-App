@@ -45,17 +45,16 @@ const ShipmentsScreen = () => {
   const { loadShipments, loadStatuses, statusesLoading, shipmentsLoading } =
     useLoadShipments();
 
-  const filteredShipments = useMemo(
-    () =>
-      search.length > 0 || appliedFilters.length > 0
-        ? shipments.filter(
-            s =>
-              appliedFilters.includes(s.status) &&
-              s.name.toLowerCase().includes(search.toLowerCase()),
-          )
-        : shipments,
-    [shipments, search, appliedFilters],
-  );
+  const filteredShipments = useMemo(() => {
+    const filteredResults =
+      appliedFilters.length > 0
+        ? shipments.filter(s => appliedFilters.includes(s.status))
+        : shipments;
+
+    return filteredResults.filter(s =>
+      s.name.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [shipments, search, appliedFilters]);
 
   const handleMarkAll = useCallback(() => {
     if (shipments.length === selectedShipments.length) {
