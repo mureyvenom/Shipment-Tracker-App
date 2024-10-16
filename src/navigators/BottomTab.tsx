@@ -13,12 +13,16 @@ import ProfileIcon from '@/components/tabicons/ProfileIcon';
 const Tab = createBottomTabNavigator<BottomTabList>();
 
 const BottomTab = () => {
-  const { placeholder, primary, disabled_button } = useThemeColors();
+  const { placeholder, primary, disabled_button, background } =
+    useThemeColors();
   const { regular } = useThemeTextVariants();
 
   useEffect(() => {
     StatusBar.setBarStyle('dark-content');
-  });
+    if (Platform.OS === 'android') {
+      StatusBar.setBackgroundColor(background);
+    }
+  }, [background]);
 
   return (
     <Tab.Navigator

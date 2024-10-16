@@ -155,6 +155,7 @@ const LoginScreen = ({ navigation }: Props) => {
                       value={
                         value ? 'https://' + stripHttpString(value) : value
                       }
+                      keyboardType="url"
                       onChangeText={v => {
                         onChange(stripHttpString(v));
                       }}

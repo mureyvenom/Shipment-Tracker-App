@@ -57,19 +57,16 @@ const ShipmentsScreen = () => {
     [shipments, search, appliedFilters],
   );
 
-  const handleMarkAll = useCallback(
-    () => () => {
-      if (shipments.length === selectedShipments.length) {
-        setSelectedShipments([]);
-        return;
-      }
-      if (marked) {
-        setSelectedShipments([]);
-      }
-      setMarked(!marked);
-    },
-    [marked, shipments, selectedShipments],
-  );
+  const handleMarkAll = useCallback(() => {
+    if (shipments.length === selectedShipments.length) {
+      setSelectedShipments([]);
+      return;
+    }
+    if (marked) {
+      setSelectedShipments([]);
+    }
+    setMarked(!marked);
+  }, [marked, shipments, selectedShipments]);
 
   useEffect(() => {
     loadStatuses();
@@ -339,7 +336,9 @@ const ShipmentsScreen = () => {
               }
               contentContainerStyle={{
                 gap: 8,
+                paddingBottom: 20,
               }}
+              removeClippedSubviews
               data={filteredShipments}
               keyExtractor={({ name }) => name}
               renderItem={({ item }) => (
